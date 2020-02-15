@@ -8,13 +8,15 @@ use GuzzleHttp\Client;
 
 class Gurunavi
 {
-    private const RESTAURANTS_SEARCH_API_URL = 'https://api.gnavi.co.jp_RestSearchAPI/v3/';
+    private const RESTAURANTS_SEARCH_API_URL = 'https://api.gnavi.co.jp/RestSearchAPI/v3/';
+
+    
     public function searchRestaurants(string $word): array
     {
     // -- ここから追加
         $client = new Client();
         $response = $client
-            ->get('self::RESTURANTS_SEARCH_API_URL', [
+            ->get(self::RESTAURANTS_SEARCH_API_URL, [
                 'query' => [
                     'keyid' => env('GURUNAVI_ACCESS_KEY'),
                     'freeword' => str_replace(' ', ',', $word),
