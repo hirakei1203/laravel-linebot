@@ -1,7 +1,8 @@
-<? php
+<?php
 
 namespace App\Services;
 
+use Illuminate\Support\Arr;
 use LINE\LINEBot\MessageBuilder\Flex\ContainerBuilder;
 
 class RestaurantBubbleBuilder implements ContainerBuilder
@@ -16,8 +17,9 @@ class RestaurantBubbleBuilder implements ContainerBuilder
   private $longitude;
   private $phoneNumber;
   private $restaurantUrl;
+  private const GOOGLE_MAP_URL = 'https://www.google.com/maps';
 
-  public static function builder(): RestaurantBubbleBuileder
+  public static function builder(): RestaurantBubbleBuilder
   {
     return new self();
   }
@@ -26,14 +28,16 @@ class RestaurantBubbleBuilder implements ContainerBuilder
   {
     $this->imageUrl = Arr::get($restaurant, 'image_url.shop_image1', null);
     $this->name = Arr::get($restaurant, 'name', null);
-    $this->closeestStation = Arr::get($restaurant, 'access.station', null);
+    $this->closestStation = Arr::get($restaurant, 'access.station', null);
     $this->minutesByFoot = Arr::get($restaurant, 'access.walk', null);
-    $this->category = Arr::get($restaurant, 'budget', null);
+    $this->category = Arr::get($restaurant, 'category', null);
+    $this->budget = Arr::get($restaurant, 'budget', null);
     $this->latitude = Arr::get($restaurant, 'latitude', null);
     $this->longitude = Arr::get($restaurant, 'longitude', null);
     $this->phoneNumber = Arr::get($restaurant, 'tel', null);
-    $this->restaurantUrl = Arr::get($restaurant, 'url , null');
+    $this->restaurantUrl = Arr::get($restaurant, 'url', null);
   }
+
   public function build(): array
   {
       $array = [
@@ -106,7 +110,7 @@ class RestaurantBubbleBuilder implements ContainerBuilder
                                 ]
                             ]
                         ],
-
+                        [
                         'type' => 'box',
                         'layout' => 'baseline',
                         'spacing' => 'xs',
@@ -183,4 +187,8 @@ class RestaurantBubbleBuilder implements ContainerBuilder
   }
   
   return $array;
-}
+  }
+ }
+
+
+?>
