@@ -55,7 +55,7 @@ class LineBotController extends Controller
                 continue;
             }
 
-          $bubbles = [],
+          $bubbles = [];
           foreach ($gurunaviResponse{'rest'] as $ restaurent) {
               $bubble = RestasurantBubbleBuilder::builder();
               $bubble->setCOntents($restaurant);
